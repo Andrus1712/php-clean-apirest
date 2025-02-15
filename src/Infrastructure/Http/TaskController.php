@@ -11,6 +11,12 @@ use Exception;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        // protegemos todo el controlador
+        AuthMiddleware::validate();
+    }
+
     public function getAllTask(): void
     {
         try {
@@ -64,7 +70,7 @@ class TaskController extends Controller
             }
 
             $taskDTO = new TaskDTO(
-                id: null, // No se envía el ID porque se generará en la BD
+                id: null,
                 title: $data['title'],
                 description: $data['description'],
                 status: "pending"

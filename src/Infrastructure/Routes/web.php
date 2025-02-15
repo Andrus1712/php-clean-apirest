@@ -1,5 +1,6 @@
 <?php
 
+use App\Infrastructure\Http\AuthController;
 use App\Infrastructure\Http\TaskController;
 use App\Infrastructure\Http\UserController;
 use Illuminate\Support\Str;
@@ -13,6 +14,17 @@ if ($requestUri[1] == "") {
 if ($requestUri[1] === "users" && isset($requestUri[2])) {
     $controller = new UserController();
     $controller->getUserById((int)$requestUri[2]);
+}
+
+// /auth
+if ($requestUri[1] === "auth" && $requestUri[2] === "login") {
+    $controller = new AuthController();
+    if ($requestMethod === "POST") {
+        $controller->login();
+    } else {
+        http_response_code(405); // Método no permitido
+        echo json_encode(["error" => "Method Not Allowed"]);
+    }
 }
 
 /** Endpoints para Tasks
