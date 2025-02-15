@@ -1,0 +1,19 @@
+{
+  "name": "acaldup/rest-api-clean",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Andres Calderon",
+      "email": "acaldup@gmail.com"
+    }
+  ],
+  "require": {
+    "illuminate/support": "^11.42",
+    "ext-pdo": "*",
+    "vlucas/phpdotenv": "^5.6"
+  }
+}

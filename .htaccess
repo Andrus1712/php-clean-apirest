@@ -1,0 +1,15 @@
+# Habilitar RewriteEngine
+RewriteEngine On
+
+# Redirigir todas las peticiones a /public/
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# Bloquear acceso a archivos sensibles
+<FilesMatch "^(composer\.json|composer\.lock|\.env|config\.php)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear acceso directo a src/ y vendor/
+RewriteRule ^(src|vendor) - [F,L]
