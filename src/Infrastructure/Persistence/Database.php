@@ -33,4 +33,26 @@ class Database
         }
         return self::$pdo;
     }
+
+    public static function getConnectionPg(): PDO
+    {
+        if (self::$pdo === null) {
+            try {
+                $dbHost = $_ENV['DB_HOST'] ?? 'localhost';
+                $dbPort = $_ENV['DB_PORT'] ?? '5432';
+                $dbName = $_ENV['DB_NAME'] ?? 'database';
+                $dbUser = $_ENV['DB_USER'] ?? 'user';
+                $dbPassword = $_ENV['DB_PASSWORD'] ?? 'password';
+                
+                $dsn = "pgsql:host=$dbHost;port=$dbPort;dbname=$dbName";
+                self::$pdo = new PDO($dsn, $dbUser, $dbPassword, [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ]);
+            } catch (PDOException $e) {
+                die("Error de conexión a PostgreSQL: " . $e->getMessage());
+            }
+        }
+        return self::$pdo;
+    }
 }

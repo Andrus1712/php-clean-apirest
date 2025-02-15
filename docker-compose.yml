@@ -36,6 +36,19 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+#  postgres:
+#    image: postgres:15
+#    container_name: postgres_db
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      POSTGRES_DB: mydatabase
+#      POSTGRES_USER: myuser
+#      POSTGRES_PASSWORD: mypassword
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+
   frontend:
     build:
       context: ./public/app
