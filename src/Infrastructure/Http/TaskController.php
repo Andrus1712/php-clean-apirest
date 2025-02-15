@@ -21,6 +21,8 @@ class TaskController extends Controller
     {
         try {
             $pdo = Database::getConnection();
+            // Para cuando se quiera usar Postgress en lugar de MYSQL
+            // $pdo = Database::getConnectionPg();
             $repository = new MysqlTaskRepository($pdo);
             $service = new TaskService($repository);
 
