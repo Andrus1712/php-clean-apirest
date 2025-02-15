@@ -65,7 +65,7 @@ if ($requestUri[1] === "tasks" && $requestUri[2] === "update" && isset($requestU
 // /tasks/delete/:id
 if ($requestUri[1] === "tasks" && $requestUri[2] === "delete" && isset($requestUri[3])) {
     $controller = new TaskController();
-    if ($requestMethod === "GET") {
+    if ($requestMethod === "DELETE") {
         $controller->deleteTask((int)$requestUri[3]);
     } else {
         http_response_code(405); // Método no permitido
