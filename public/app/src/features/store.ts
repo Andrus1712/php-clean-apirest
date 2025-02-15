@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage";
 import {tokenSlice} from "./token/tokenSlice.ts";
 import {usersSlice} from "./user/userSlice.ts";
 import {authApi} from "../api/authApi.ts";
+import {taskApi} from "../api/taskApi.ts";
 
 
 const persistConfig = {
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     token: tokenSlice.reducer,
     users: usersSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [taskApi.reducerPath]: taskApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,7 +31,7 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat(authApi.middleware),
+        }).concat(authApi.middleware, taskApi.middleware),
 });
 
 const persistor: Persistor = persistStore(store);

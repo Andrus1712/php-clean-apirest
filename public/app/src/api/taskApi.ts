@@ -1,15 +1,15 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {RootState} from "../features";
 
-interface Task {
+export interface Task {
     id: number;
     title: string;
     description: string;
     status: string;
 }
 
-export const authApi = createApi({
-    reducerPath: 'authApi',
+export const taskApi = createApi({
+    reducerPath: 'taskApi',
     baseQuery: fetchBaseQuery(
         {
             baseUrl: 'http://localhost:9000',
@@ -21,12 +21,15 @@ export const authApi = createApi({
                 return headers;
             },
         }),
+    tagTypes: ["Task"],
     endpoints: (builder) => ({
         getAllTasks: builder.query<Task[], void>({
             query: () => "/tasks",
+            providesTags: ["Task"],
         }),
         getTaskById: builder.query<Task, number>({
             query: (id) => `/tasks/${id}`,
+            providesTags: ["Task"],
         }),
         createTask: builder.mutation<Task, Omit<Task, "id">>({
             query: (newTask) => ({
@@ -34,19 +37,19 @@ export const authApi = createApi({
                 method: "POST",
                 body: newTask,
             }),
+            invalidatesTags: ["Task"],
         }),
         updateTask: builder.mutation<Task, Task>({
             query: (task) => ({
-                url: `/tasks/${task.id}`,
-                method: "PUT",
+                url: `/tasks/update/${task.id}`,
+                method: "POST",
                 body: task,
             }),
+            invalidatesTags: ["Task"],
         }),
-        deleteTask: builder.mutation<{ success: boolean }, number>({
-            query: (id) => ({
-                url: `/tasks/${id}`,
-                method: "DELETE",
-            }),
+        deleteTask: builder.query<{ success: boolean }, number>({
+            query: (id) => `/tasks/delete/${id}`,
+            providesTags: ["Task"],
         }),
     }),
 });
@@ -56,5 +59,5 @@ export const {
     useGetTaskByIdQuery,
     useCreateTaskMutation,
     useUpdateTaskMutation,
-    useDeleteTaskMutation
-} = authApi;
+    useLazyDeleteTaskQuery
+} = taskApi;

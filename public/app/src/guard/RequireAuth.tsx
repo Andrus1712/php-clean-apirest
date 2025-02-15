@@ -5,12 +5,10 @@ import Layout from "../layout/Layout.tsx";
 const RequireAuth = () => {
     
     const {value: _token} = useAppSelector(state => state.token);
-    return <>
-        <Layout>
-            {_token}
-            <Outlet/>
-        </Layout>
-    </>;
+    return <Layout>
+        {_token}
+        <Outlet/>
+    </Layout>;
     // return _token ?
     //     <Layout>
     //         <Outlet/>

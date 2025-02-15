@@ -7,7 +7,7 @@ function Header() {
                     <nav>
                         
                         <div className="lg:flex lg:flex-1 lg:justify-end">
-                            <a href="#" className="text-sm/6 font-semibold text-white">Log in <span
+                            <a href="/login" className="text-sm/6 font-semibold text-white">Log in <span
                                 aria-hidden="true">&rarr;</span></a>
                         </div>
                     </nav>
