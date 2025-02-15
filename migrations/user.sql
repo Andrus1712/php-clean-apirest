@@ -7,7 +7,7 @@ CREATE TABLE users
 );
 
 
-INSERT INTO users (name, email)
+INSERT INTO users (name, email, password)
 VALUES ('Juan Pérez', 'juan.perez@example.com', '$2y$10$cK0R81V7j6VdC41IS9FtK.tA1GAAlnOiF5SECq4IVxaDMIYn6Elq.'),
        ('María González', 'maria.gonzalez@example.com', '$2y$10$cK0R81V7j6VdC41IS9FtK.tA1GAAlnOiF5SECq4IVxaDMIYn6Elq.'),
        ('Carlos Ramírez', 'carlos.ramirez@example.com', '$2y$10$cK0R81V7j6VdC41IS9FtK.tA1GAAlnOiF5SECq4IVxaDMIYn6Elq.'),

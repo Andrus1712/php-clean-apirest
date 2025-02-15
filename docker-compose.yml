@@ -37,13 +37,13 @@ services:
       - mysql_data:/var/lib/mysql
 
   frontend:
-    build: ./public/app
+    build:
+      context: ./public/app
+      dockerfile: Dockerfile
     container_name: vite_frontend
     restart: always
     ports:
       - "9001:80"
-    volumes:
-      - ./public/app:/usr/share/nginx/html
     depends_on:
       - app
 
