@@ -2,6 +2,8 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 interface ResponseAuth {
     token: string;
+    email: string;
+    name: string;
 }
 
 interface Ilogin {

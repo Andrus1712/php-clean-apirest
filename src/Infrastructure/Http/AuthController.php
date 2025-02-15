@@ -31,7 +31,7 @@ class AuthController extends Controller
             $jwt = new JwtHandlerService();
             $token = $jwt->generateToken(['user_id' => $user['id'], 'email' => $user['email']]);
 
-            echo json_encode(['token' => $token]);
+            echo json_encode(['token' => $token, 'email' => $user['email'], 'name' => $user['name']]);
         } else {
             http_response_code(401);
             echo json_encode(['message' => 'Credenciales inválidas']);

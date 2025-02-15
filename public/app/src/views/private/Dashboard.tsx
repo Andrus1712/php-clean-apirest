@@ -1,8 +1,8 @@
 import {
     Task,
     useCreateTaskMutation,
+    useDeleteTaskMutation,
     useGetAllTasksQuery,
-    useLazyDeleteTaskQuery,
     useUpdateTaskMutation
 } from "../../api/taskApi.ts";
 import {useState} from "react";
@@ -13,7 +13,7 @@ function Dashboard() {
     const [newTask, setNewTask] = useState({title: "", description: "", status: "pending"});
     const [createTask] = useCreateTaskMutation();
     const [updateTask] = useUpdateTaskMutation();
-    const [deleteTask] = useLazyDeleteTaskQuery();
+    const [deleteTask] = useDeleteTaskMutation();
     
     if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
     if (isError) return <pre className="text-red-500">{JSON.stringify(error, null, 2)}</pre>;
@@ -22,8 +22,6 @@ function Dashboard() {
     return (
         <>
             <div className="max-w-2xl mx-auto p-4">
-                <h1 className="text-2xl font-bold text-center mb-4">📝 To-Do List</h1>
-                
                 {/* Formulario para añadir nueva tarea */}
                 <div className="bg-white p-4 rounded-lg shadow mb-4">
                     <h2 className="text-lg font-semibold mb-2">Añadir Nueva Tarea</h2>

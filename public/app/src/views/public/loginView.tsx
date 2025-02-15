@@ -1,8 +1,9 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useAuthUserMutation} from "../../api/authApi.ts";
 import {useAppDispatch} from "../../hooks";
-import {add_Token} from "../../features";
+import {add_Token, clear_Tokens} from "../../features";
 import {useNavigate} from "react-router-dom";
+import {setUser} from "../../features/user/userSlice.ts";
 
 function LoginView() {
     
@@ -10,13 +11,21 @@ function LoginView() {
     const [password, setPassword] = useState("");
     const [authUser, {isLoading, error}] = useAuthUserMutation();
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    
+    useEffect(() => {
+        dispatch(clear_Tokens());
+    }, []);
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const result = await authUser({email, password}).unwrap();
-            dispatch(add_Token(result.token));
+            dispatch(add_Token(result.token))
+            dispatch(setUser({
+                email: result.email,
+                name: result.name
+            }));
             navigate("/dashboard");
         } catch (err) {
             console.error("Error de autenticación:", err);
